@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: cpaas-cap-api
+  profiles:
+    active: dev
+      
+      
+server:
+  port: 9090
+  servlet:
+    context-path: /cpass-middleware
+    
+ # For logging elastic search queries and Feign client
+logging:
+  level:
+      springframework:
+        data:
+          elasticsearch:
+            core: DEBUG
+      com:
+        atlas:
+          middleware:
+            client: DEBUG
+
+feign:
+  httpclient:
+    disableSslValidation: true
+  client:
+    config:
+      default:
+        loggerLevel: FULL

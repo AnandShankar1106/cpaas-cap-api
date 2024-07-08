@@ -1,0 +1,58 @@
+spring:
+  data:
+   
+  atlas:
+    datasource:
+      jdbcUrl: jdbc:postgresql://10.16.206.8:5432/atlas_2020
+      username: postgres
+      password: postgres
+      driver-class-name: org.postgresql.Driver
+
+  salesorder:
+    datasource:
+      jdbcUrl: jdbc:mysql://10.16.206.7:3306/sr_agent_portal_dev_db
+      username: stageuser
+      password: C5bsxbE2hgQCpcca
+      driverClassName: com.mysql.jdbc.Driver
+  jpa:
+    database: postgresql
+    properties:
+      hibernate:
+        format_sql: false
+        dialect: org.hibernate.dialect.PostgreSQL94Dialect
+        current_session_context_class: org.springframework.orm.hibernate5.SpringSessionContext
+        jdbc:
+          time_zone: UTC
+          batch_size: 50
+        order_inserts: true
+        order_updates: true
+        batch_versioned_data: true
+        show_sql: true
+
+kafka:
+  bootstrap-servers: ply-atlas-kafka01.ipa.stg.localnet.io:9093,ply-atlas-kafka02.ipa.stg.localnet.io:9093,ply-atlas-kafka03.ipa.stg.localnet.io:9093
+  group-id: atlas-middleware
+  enable-auto-commit: true
+  topics:
+    order_events:
+      name: order_events
+  properties:
+      sasl:
+        mechanism: SCRAM-SHA-256
+        jaas:
+          config: org.apache.kafka.common.security.scram.ScramLoginModule required username="app_atlas-middleware" password="h2A58MWuy8pylq";
+      security:
+        protocol: SASL_SSL
+      ssl:
+        truststore:
+          location: xyz
+          password: xyz
+          type: JKS
+  listener:
+    enabled: false
+
+external_apis:
+  partner_api: http://apilb.stage.anpi.com/common/api/2.0/partner
+ 
+trial:
+  period: 30
